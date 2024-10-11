@@ -33,6 +33,9 @@ def simulate_policy_bc(env, policy, expert_data, num_epochs=500, episode_length=
             batch_observation = expert_flattened['observations'][i*batch_size:(i+1)*batch_size]
             batch_action = expert_flattened['actions'][i*batch_size:(i+1)*batch_size]
 
+            batch_observation = batch_observation.to(device)
+            batch_action = batch_action.to(device)
+
             action_pred = policy(batch_observation)
             criterion = nn.NLLLoss()
             loss = criterion(action_pred, batch_action) 
